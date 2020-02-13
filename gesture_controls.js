@@ -1,14 +1,14 @@
 import * as s from 'module://sumerian-common/api';
-const MathUtils = s.math.MathUtils
+const MathUtils = s.math.MathUtils;
 
 export default function(ctx) {
      
-    const hammer = new hammer.Manager(document.body);
+    const hammer = new Hammer.Manager(document.body);
 
-    const pinch = new hammer.Pinch();
+    const pinch = new Hammer.Pinch();
     hammer.add(pinch);
 
-    const rotate = new hammer.Rotate();
+    const rotate = new Hammer.Rotate();
     hammer.add(rotate);
 
     pinch.recognizeWith(rotate);
@@ -35,12 +35,12 @@ export default function(ctx) {
         const yRadians = ctx.entity.rotation.y;
         baseEntityRotation = MathUtils.degFromRad(yRadians);
         baseGestureRotation = gesture.rotation;
-    })
+    });
 
     hammer.on('rotate', (gesture) => {
         const rotationDelta = gesture.rotation - baseGestureRotation;
         const rotationDegrees = baseEntityRotation - rotationDelta;
         const rotationRadians = MathUtils.radFromDeg(rotationDegrees);
         ctx.entity.rotation.y = rotationRadians;
-    })
+    });
 }
